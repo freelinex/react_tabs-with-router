@@ -2,9 +2,11 @@ import 'bulma/css/bulma.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './App.scss';
 
-import { NavLink, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 export const App = () => {
+  const location = useLocation();
+
   return (
     <>
       {/* Also requires <html class="has-navbar-fixed-top"> */}
@@ -14,23 +16,18 @@ export const App = () => {
       >
         <div className="container">
           <div className="navbar-brand">
-            <NavLink
+            <Link
               to="/"
-              end
-              className={({ isActive }) =>
-                `navbar-item${isActive ? ' is-active' : ''}`
-              }
+              className={`navbar-item ${location.pathname !== '/' ? '' : 'is-active'}`}
             >
               Home
-            </NavLink>
-            <NavLink
+            </Link>
+            <Link
               to="/tabs"
-              className={({ isActive }) =>
-                `navbar-item${isActive ? ' is-active' : ''}`
-              }
+              className={`navbar-item ${!location.pathname.includes('/tabs') ? '' : 'is-active'}`}
             >
               Tabs
-            </NavLink>
+            </Link>
           </div>
         </div>
       </nav>
